@@ -1,0 +1,352 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Syne:wght@700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg:        #050508;
+  --surface:   #0c0c16;
+  --surface-2: #13131f;
+  --border:    rgba(255, 255, 255, 0.07);
+  --accent:    #6366f1;
+  --cyan:      #22d3ee;
+  --text:      #e8eaf8;
+  --muted:     #6b7a99;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* clip is stricter than hidden: no scroll container, so the page
+   can never be nudged sideways — even mid-animation on mobile */
+@supports (overflow-x: clip) {
+  html, body { overflow-x: clip; }
+}
+
+/* For sections that slide content in from the sides — clips the
+   off-screen cards without affecting vertical layout */
+.ox-clip { overflow-x: hidden; }
+@supports (overflow-x: clip) {
+  .ox-clip { overflow-x: clip; }
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 99px; }
+
+/* ── Dot-grid background ── */
+.dot-grid {
+  background-image: radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+/* ── Gradient text ── */
+.g-text {
+  background: linear-gradient(135deg, #6366f1 0%, #22d3ee 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Hero typography ── */
+.hero-script {
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(2.2rem, 4.5vw, 3.6rem);
+  font-weight: 400;
+  line-height: 1.1;
+  color: var(--cyan);
+  letter-spacing: 0.02em;
+  text-shadow: 0 0 32px rgba(34, 211, 238, 0.45);
+  transform: rotate(-3deg);
+  transform-origin: left center;
+}
+
+.hero-name {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.hero-letter {
+  display: inline-block;
+  cursor: default;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.hero-letter:hover {
+  transform: translateY(-10px) rotate(-6deg) scale(1.08);
+}
+
+/* Mirror reflection under the name — fades out with distance.
+   box-reflect paints outside the layout box, so margin-bottom
+   reserves real space for it and keeps content below clear. */
+.hero-reflect {
+  -webkit-box-reflect: below 4px
+    linear-gradient(to bottom, transparent 68%, rgba(255, 255, 255, 0.18) 100%);
+  margin-bottom: clamp(2rem, 5vw, 3.75rem);
+}
+
+/* Flowing gradient wave — each letter offset via animation-delay */
+.hero-letter-grad {
+  background: linear-gradient(120deg, #6366f1, #22d3ee, #a78bfa, #f472b6, #6366f1);
+  background-size: 400% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: grad-wave 6s linear infinite;
+}
+@keyframes grad-wave {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 400% 50%; }
+}
+
+/* ── Hero photo ── */
+/* Gentle bob on an outer wrapper — GSAP owns the inner div's transform */
+.photo-float {
+  animation: photo-float 6s ease-in-out infinite;
+}
+@keyframes photo-float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-14px); }
+}
+
+/* Pulsing glow behind the photo */
+.photo-glow {
+  position: absolute;
+  inset: -28px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.4) 0%, rgba(34, 211, 238, 0.18) 45%, transparent 70%);
+  filter: blur(28px);
+  opacity: 0.75;
+  transition: opacity 0.5s ease;
+  animation: glow-pulse 5s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes glow-pulse {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.12); }
+}
+.photo-float:hover .photo-glow { opacity: 1; }
+
+/* Spinning conic-gradient ring border */
+.photo-ring {
+  position: absolute;
+  inset: -7px;
+  border-radius: 50%;
+  padding: 2.5px;
+  background: conic-gradient(from 0deg, #6366f1, #22d3ee, #a78bfa, #f472b6, #6366f1);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+          mask-composite: exclude;
+  animation: ring-spin 5s linear infinite;
+  pointer-events: none;
+}
+@keyframes ring-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Satellite dot orbiting on the outer decorative ring */
+.photo-orbit {
+  border-radius: 50%;
+  animation: ring-spin 14s linear infinite;
+  pointer-events: none;
+}
+.photo-orbit::before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: 50%;
+  margin-left: -4px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--cyan);
+  box-shadow: 0 0 14px var(--cyan), 0 0 30px rgba(34, 211, 238, 0.5);
+}
+
+/* Photo zoom on hover */
+.photo-float img {
+  transition: transform 0.5s ease;
+}
+.photo-float:hover img {
+  transform: scale(1.04);
+}
+
+/* ── Section label ── */
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.section-label::before {
+  content: '';
+  display: block;
+  width: 28px;
+  height: 1px;
+  background: var(--accent);
+}
+
+/* ── Card base ── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  transition: border-color 0.3s, transform 0.3s;
+}
+.card:hover {
+  border-color: rgba(99,102,241,0.35);
+  transform: translateY(-4px);
+}
+
+/* ── Button base ── */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border-radius: 10px;
+  text-decoration: none;
+  transition: background 0.25s, transform 0.2s;
+  border: none;
+  cursor: pointer;
+}
+.btn-primary:hover { background: #4f52d4; transform: translateY(-2px); }
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  background: transparent;
+  color: var(--text);
+  font-weight: 600;
+  font-size: 0.9rem;
+  border-radius: 10px;
+  text-decoration: none;
+  border: 1px solid var(--border);
+  transition: border-color 0.25s, color 0.25s, transform 0.2s;
+  cursor: pointer;
+}
+.btn-outline:hover {
+  border-color: var(--cyan);
+  color: var(--cyan);
+  transform: translateY(-2px);
+}
+
+/* ── Reveal on scroll ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(36px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+.reveal-delay-5 { transition-delay: 0.5s; }
+
+/* ── Tag chip ── */
+.tag {
+  display: inline-block;
+  padding: 3px 10px;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  border-radius: 99px;
+  background: rgba(99,102,241,0.12);
+  color: #a5b4fc;
+  border: 1px solid rgba(99,102,241,0.2);
+}
+
+/* ── Skill bar ── */
+.skill-bar-track {
+  height: 4px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 99px;
+  overflow: hidden;
+}
+.skill-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #6366f1, #22d3ee);
+  border-radius: 99px;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 1.2s cubic-bezier(0.16,1,0.3,1);
+}
+.skill-bar-fill.animated { transform: scaleX(1); }
+
+/* ── Marquee (adko-style sideways band) ── */
+.marquee {
+  overflow: hidden;
+  white-space: nowrap;
+  width: 100%;
+}
+.marquee-track {
+  display: inline-flex;
+  align-items: center;
+  will-change: transform;
+}
+.marquee-item {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+.marquee-text {
+  font-size: clamp(1.6rem, 4vw, 3rem);
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--text);
+  padding: 0 1.5rem;
+}
+.marquee-text-outline {
+  font-size: clamp(1.6rem, 4vw, 3rem);
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.25);
+  padding: 0 1.5rem;
+}
+.marquee-sep {
+  color: var(--accent);
+  font-size: clamp(1rem, 2vw, 1.5rem);
+}
+
+/* ── Timeline connector ── */
+.timeline-line {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, #6366f1, transparent);
+}
