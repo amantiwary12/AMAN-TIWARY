@@ -28,22 +28,25 @@ const Navbar = () => {
       <header
         className="fixed top-0 inset-x-0 z-50 transition-all duration-300"
         style={{
-          background: scrolled ? "rgba(5,5,8,0.85)" : "transparent",
+          background: scrolled ? "rgba(13,12,10,0.85)" : "transparent",
           backdropFilter: scrolled ? "blur(16px)" : "none",
           borderBottom: scrolled ? "1px solid rgba(255,255,255,0.06)" : "none",
         }}
       >
         <div className="max-w-7xl mx-auto px-6 lg:px-10 h-16 flex items-center justify-between">
-          {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 group">
+          {/* Logo — serif wordmark */}
+          <Link to="/" className="flex items-baseline gap-0.5 group">
             <span
-              className="w-8 h-8 rounded-lg flex items-center justify-center text-sm font-black text-white"
-              style={{ background: "linear-gradient(135deg,#6366f1,#22d3ee)" }}
+              className="text-xl transition-colors"
+              style={{ fontFamily: "'Instrument Serif', Georgia, serif", color: "var(--text)" }}
             >
-              AT
-            </span>
-            <span className="text-sm font-semibold text-white/70 group-hover:text-white transition-colors">
               Aman Tiwary
+            </span>
+            <span
+              className="text-2xl leading-none"
+              style={{ fontFamily: "'Instrument Serif', Georgia, serif", color: "var(--accent)" }}
+            >
+              .
             </span>
           </Link>
 
@@ -54,15 +57,15 @@ const Navbar = () => {
                 key={l.to}
                 to={l.to}
                 className="relative px-4 py-2 text-sm font-medium rounded-lg transition-colors"
-                style={{ color: isActive(l.to) ? "#a5b4fc" : "#9ca3af" }}
-                onMouseEnter={(e) => { if (!isActive(l.to)) e.currentTarget.style.color = "#e8eaf8"; }}
-                onMouseLeave={(e) => { if (!isActive(l.to)) e.currentTarget.style.color = "#9ca3af"; }}
+                style={{ color: isActive(l.to) ? "var(--text)" : "var(--muted)" }}
+                onMouseEnter={(e) => { if (!isActive(l.to)) e.currentTarget.style.color = "var(--text)"; }}
+                onMouseLeave={(e) => { if (!isActive(l.to)) e.currentTarget.style.color = "var(--muted)"; }}
               >
                 {l.label}
                 {isActive(l.to) && (
                   <span
                     className="absolute bottom-1 left-4 right-4 h-px rounded-full"
-                    style={{ background: "linear-gradient(90deg,#6366f1,#22d3ee)" }}
+                    style={{ background: "var(--accent)" }}
                   />
                 )}
               </Link>
@@ -111,7 +114,7 @@ const Navbar = () => {
         style={{
           opacity: menuOpen ? 1 : 0,
           pointerEvents: menuOpen ? "auto" : "none",
-          background: "rgba(5,5,8,0.97)",
+          background: "rgba(13,12,10,0.97)",
           backdropFilter: "blur(20px)",
         }}
       >
@@ -120,8 +123,11 @@ const Navbar = () => {
             <Link
               key={l.to}
               to={l.to}
-              className="text-3xl font-bold transition-colors"
-              style={{ color: isActive(l.to) ? "#a5b4fc" : "#e8eaf8" }}
+              className="text-3xl transition-colors"
+              style={{
+                fontFamily: "'Instrument Serif', Georgia, serif",
+                color: isActive(l.to) ? "var(--accent)" : "var(--text)",
+              }}
             >
               {l.label}
             </Link>

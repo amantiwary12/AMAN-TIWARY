@@ -17,7 +17,7 @@ const timeline = [
       "Building ERP and SaaS application modules for internal business operations across company teams.",
     ],
     tags: ["React.js", "Node.js", "Express.js", "MongoDB", "JWT & RBAC"],
-    accent: "#6366f1",
+    accent: "#ee5b2e",
   },
   {
     period: "Aug 2025 — Jan 2026",
@@ -29,7 +29,7 @@ const timeline = [
       "Implemented API-driven real-time data visualization and system status tracking, enabling operators to detect issues faster.",
     ],
     tags: ["React.js", "REST APIs", "Data Visualization", "IoT Dashboards"],
-    accent: "#22d3ee",
+    accent: "#e0b464",
   },
   {
     period: "2022 — 2026",
@@ -42,7 +42,7 @@ const timeline = [
       "Frontend Development Internship Certification — Aartech Solonics Limited (2026).",
     ],
     tags: ["Computer Science", "AWS", "MERN Stack"],
-    accent: "#f472b6",
+    accent: "#ee5b2e",
   },
 ];
 
@@ -99,7 +99,7 @@ const Experience = () => {
           {/* Center spine (left on mobile) */}
           <div
             className="exp-spine absolute left-4 md:left-1/2 top-0 bottom-0 w-px"
-            style={{ background: "linear-gradient(to bottom, #6366f1, #22d3ee, transparent)" }}
+            style={{ background: "linear-gradient(to bottom, #ee5b2e, rgba(224,180,100,0.5), transparent)" }}
           />
 
           <div ref={listRef} className="space-y-14">

@@ -1,19 +1,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Syne:wght@700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* ─────────────────────────────────────────────────────────────
+   Design system — "warm editorial dark"
+   One confident accent (vermilion) + soft amber secondary on a
+   warm near-black. Serif display type, mono labels, film grain.
+   ───────────────────────────────────────────────────────────── */
 :root {
-  --bg:        #050508;
-  --surface:   #0c0c16;
-  --surface-2: #13131f;
-  --border:    rgba(255, 255, 255, 0.07);
-  --accent:    #6366f1;
-  --cyan:      #22d3ee;
-  --text:      #e8eaf8;
-  --muted:     #6b7a99;
+  --bg:        #0d0c0a;
+  --surface:   #131210;
+  --surface-2: #1a1815;
+  --border:    rgba(233, 225, 210, 0.08);
+  --accent:    #ee5b2e;   /* vermilion */
+  --cyan:      #e0b464;   /* legacy name — now the soft amber secondary */
+  --text:      #ece7de;   /* warm cream */
+  --muted:     #8f887a;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -29,6 +34,23 @@ body {
   color: var(--text);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* Film-grain overlay — the single biggest "designed, not generated"
+   signal. Sits over everything, invisible to interaction. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9990;
+  pointer-events: none;
+  opacity: 0.045;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 /* clip is stricter than hidden: no scroll container, so the page
@@ -47,38 +69,40 @@ body {
 /* ── Scrollbar ── */
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
-::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 99px; }
+::-webkit-scrollbar-thumb { background: #3d382f; border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent); }
 
 /* ── Dot-grid background ── */
 .dot-grid {
-  background-image: radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1px);
+  background-image: radial-gradient(rgba(236,231,222,0.05) 1px, transparent 1px);
   background-size: 28px 28px;
 }
 
-/* ── Gradient text ── */
+/* ── Accent display text ──
+   Used inside bold sans headings: the marked words switch to
+   italic serif in the accent color — the editorial mixed-type look. */
 .g-text {
-  background: linear-gradient(135deg, #6366f1 0%, #22d3ee 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: var(--accent);
 }
 
 /* ── Hero typography ── */
 .hero-script {
-  font-family: 'Great Vibes', cursive;
-  font-size: clamp(2.2rem, 4.5vw, 3.6rem);
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-style: italic;
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
   font-weight: 400;
   line-height: 1.1;
   color: var(--cyan);
-  letter-spacing: 0.02em;
-  text-shadow: 0 0 32px rgba(34, 211, 238, 0.45);
-  transform: rotate(-3deg);
-  transform-origin: left center;
+  letter-spacing: 0.01em;
 }
 
 .hero-name {
-  font-family: 'Syne', sans-serif;
-  font-weight: 800;
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-weight: 400;
   letter-spacing: -0.02em;
 }
 
@@ -88,113 +112,69 @@ body {
   transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 .hero-letter:hover {
-  transform: translateY(-10px) rotate(-6deg) scale(1.08);
+  transform: translateY(-8px) rotate(-4deg);
 }
 
-/* Mirror reflection under the name — fades out with distance.
-   box-reflect paints outside the layout box, so margin-bottom
-   reserves real space for it and keeps content below clear. */
+/* space once reserved for the mirror reflection — kept as plain
+   spacing so the layout below the name doesn't shift */
 .hero-reflect {
-  -webkit-box-reflect: below 4px
-    linear-gradient(to bottom, transparent 68%, rgba(255, 255, 255, 0.18) 100%);
-  margin-bottom: clamp(2rem, 5vw, 3.75rem);
+  margin-bottom: clamp(1.25rem, 3vw, 2.25rem);
 }
 
-/* Flowing gradient wave — each letter offset via animation-delay */
+/* accent-coloured letters in the name (solid — no gradient wave) */
 .hero-letter-grad {
-  background: linear-gradient(120deg, #6366f1, #22d3ee, #a78bfa, #f472b6, #6366f1);
-  background-size: 400% 100%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: grad-wave 6s linear infinite;
-}
-@keyframes grad-wave {
-  0%   { background-position: 0% 50%; }
-  100% { background-position: 400% 50%; }
+  color: var(--accent);
 }
 
 /* ── Hero photo ── */
-/* Gentle bob on an outer wrapper — GSAP owns the inner div's transform */
-.photo-float {
-  animation: photo-float 6s ease-in-out infinite;
+/* Whole rope+polaroid assembly swings gently from the nail */
+.hang-sway {
+  animation: hang-sway 5.5s ease-in-out infinite;
+  transform-origin: 50% 12px;
 }
-@keyframes photo-float {
-  0%, 100% { transform: translateY(0); }
-  50%      { transform: translateY(-14px); }
+@keyframes hang-sway {
+  0%, 100% { transform: rotate(1.6deg); }
+  50%      { transform: rotate(-1.6deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hang-sway { animation: none; }
 }
 
-/* Pulsing glow behind the photo */
-.photo-glow {
+/* editorial offset frame behind portraits (used on other pages) */
+.photo-frame {
   position: absolute;
-  inset: -28px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(99, 102, 241, 0.4) 0%, rgba(34, 211, 238, 0.18) 45%, transparent 70%);
-  filter: blur(28px);
-  opacity: 0.75;
-  transition: opacity 0.5s ease;
-  animation: glow-pulse 5s ease-in-out infinite;
+  inset: 0;
+  transform: translate(14px, 14px);
+  border: 1px solid rgba(238, 91, 46, 0.45);
+  border-radius: 18px;
   pointer-events: none;
 }
-@keyframes glow-pulse {
-  0%, 100% { transform: scale(1); }
-  50%      { transform: scale(1.12); }
-}
-.photo-float:hover .photo-glow { opacity: 1; }
-
-/* Spinning conic-gradient ring border */
-.photo-ring {
-  position: absolute;
-  inset: -7px;
-  border-radius: 50%;
-  padding: 2.5px;
-  background: conic-gradient(from 0deg, #6366f1, #22d3ee, #a78bfa, #f472b6, #6366f1);
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-          mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-          mask-composite: exclude;
-  animation: ring-spin 5s linear infinite;
-  pointer-events: none;
-}
-@keyframes ring-spin {
-  to { transform: rotate(360deg); }
+.photo-frame--2 {
+  transform: translate(-12px, -12px);
+  border-color: var(--border);
 }
 
-/* Satellite dot orbiting on the outer decorative ring */
-.photo-orbit {
-  border-radius: 50%;
-  animation: ring-spin 14s linear infinite;
-  pointer-events: none;
+/* ── Big serif numerals (hero stats) ── */
+.stat-num {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: 2.4rem;
+  line-height: 1;
+  color: var(--text);
 }
-.photo-orbit::before {
-  content: '';
-  position: absolute;
-  top: -4px;
-  left: 50%;
-  margin-left: -4px;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--cyan);
-  box-shadow: 0 0 14px var(--cyan), 0 0 30px rgba(34, 211, 238, 0.5);
-}
-
-/* Photo zoom on hover */
-.photo-float img {
-  transition: transform 0.5s ease;
-}
-.photo-float:hover img {
-  transform: scale(1.04);
+.stat-num em {
+  font-style: italic;
+  color: var(--accent);
 }
 
 /* ── Section label ── */
 .section-label {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.15em;
+  gap: 10px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--accent);
 }
@@ -210,12 +190,13 @@ body {
 .card {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 16px;
-  transition: border-color 0.3s, transform 0.3s;
+  border-radius: 14px;
+  transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
 }
 .card:hover {
-  border-color: rgba(99,102,241,0.35);
+  border-color: rgba(238, 91, 46, 0.35);
   transform: translateY(-4px);
+  box-shadow: 0 20px 40px -24px rgba(0, 0, 0, 0.7);
 }
 
 /* ── Button base ── */
@@ -224,17 +205,21 @@ body {
   align-items: center;
   gap: 8px;
   padding: 12px 28px;
-  background: var(--accent);
-  color: #fff;
+  background: var(--text);
+  color: #0d0c0a;
   font-weight: 600;
   font-size: 0.9rem;
-  border-radius: 10px;
+  border-radius: 999px;
   text-decoration: none;
-  transition: background 0.25s, transform 0.2s;
+  transition: background 0.25s, color 0.25s, transform 0.2s;
   border: none;
   cursor: pointer;
 }
-.btn-primary:hover { background: #4f52d4; transform: translateY(-2px); }
+.btn-primary:hover {
+  background: var(--accent);
+  color: #fff;
+  transform: translateY(-2px);
+}
 
 .btn-outline {
   display: inline-flex;
@@ -245,15 +230,15 @@ body {
   color: var(--text);
   font-weight: 600;
   font-size: 0.9rem;
-  border-radius: 10px;
+  border-radius: 999px;
   text-decoration: none;
-  border: 1px solid var(--border);
+  border: 1px solid rgba(233, 225, 210, 0.18);
   transition: border-color 0.25s, color 0.25s, transform 0.2s;
   cursor: pointer;
 }
 .btn-outline:hover {
-  border-color: var(--cyan);
-  color: var(--cyan);
+  border-color: var(--accent);
+  color: var(--accent);
   transform: translateY(-2px);
 }
 
@@ -277,25 +262,31 @@ body {
 .tag {
   display: inline-block;
   padding: 3px 10px;
-  font-size: 0.7rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.66rem;
   font-weight: 500;
   letter-spacing: 0.04em;
   border-radius: 99px;
-  background: rgba(99,102,241,0.12);
-  color: #a5b4fc;
-  border: 1px solid rgba(99,102,241,0.2);
+  background: rgba(233, 225, 210, 0.05);
+  color: #b8b0a1;
+  border: 1px solid rgba(233, 225, 210, 0.12);
+  transition: border-color 0.25s, color 0.25s;
+}
+.tag:hover {
+  border-color: rgba(238, 91, 46, 0.5);
+  color: var(--accent);
 }
 
 /* ── Skill bar ── */
 .skill-bar-track {
   height: 4px;
-  background: rgba(255,255,255,0.06);
+  background: rgba(236, 231, 222, 0.07);
   border-radius: 99px;
   overflow: hidden;
 }
 .skill-bar-fill {
   height: 100%;
-  background: linear-gradient(90deg, #6366f1, #22d3ee);
+  background: var(--accent);
   border-radius: 99px;
   transform: scaleX(0);
   transform-origin: left;
@@ -321,19 +312,21 @@ body {
 }
 .marquee-text {
   font-size: clamp(1.6rem, 4vw, 3rem);
-  font-weight: 900;
+  font-weight: 800;
   letter-spacing: 0.02em;
   text-transform: uppercase;
   color: var(--text);
   padding: 0 1.5rem;
 }
 .marquee-text-outline {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-style: italic;
   font-size: clamp(1.6rem, 4vw, 3rem);
-  font-weight: 900;
-  letter-spacing: 0.02em;
+  font-weight: 400;
+  letter-spacing: 0.01em;
   text-transform: uppercase;
   color: transparent;
-  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.25);
+  -webkit-text-stroke: 1px rgba(236, 231, 222, 0.28);
   padding: 0 1.5rem;
 }
 .marquee-sep {
@@ -348,5 +341,5 @@ body {
   top: 0;
   bottom: 0;
   width: 1px;
-  background: linear-gradient(to bottom, #6366f1, transparent);
+  background: linear-gradient(to bottom, var(--accent), transparent);
 }

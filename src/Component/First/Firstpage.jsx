@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Photo from "../../Accest/myphoto.jpg";
+import HangingPhoto from "./HangingPhoto";
 import Typing from "../../UI/Typing";
 import MultiC from "../../Pages/MultiCard/MultiC";
 import Footer from "../Navbar/Footer";
@@ -108,11 +108,11 @@ const Firstpage = () => {
         {/* Subtle glow blobs — static, no animation */}
         <div
           className="absolute top-1/4 left-1/4 w-[60vw] h-[60vw] max-w-96 max-h-96 rounded-full pointer-events-none"
-          style={{ background: "radial-gradient(circle, rgba(99,102,241,0.08) 0%, transparent 70%)" }}
+          style={{ background: "radial-gradient(circle, rgba(238,91,46,0.07) 0%, transparent 70%)" }}
         />
         <div
           className="absolute bottom-1/4 right-1/4 w-[50vw] h-[50vw] max-w-80 max-h-80 rounded-full pointer-events-none"
-          style={{ background: "radial-gradient(circle, rgba(34,211,238,0.06) 0%, transparent 70%)" }}
+          style={{ background: "radial-gradient(circle, rgba(224,180,100,0.05) 0%, transparent 70%)" }}
         />
 
         <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 py-20 w-full">
@@ -200,7 +200,9 @@ const Firstpage = () => {
               <div ref={statsRef} className="flex flex-wrap gap-8">
                 {stats.map((s) => (
                   <div key={s.n}>
-                    <div className="text-3xl font-black text-white">{s.n}</div>
+                    <div className="stat-num">
+                      {s.n.replace("+", "")}<em>+</em>
+                    </div>
                     <div className="text-xs mt-1 tracking-widest uppercase" style={{ color: "var(--muted)" }}>
                       {s.label}
                     </div>
@@ -211,44 +213,10 @@ const Firstpage = () => {
 
             {/* ── Right: Photo + stack ── */}
             <div className="flex flex-col items-center lg:items-end gap-8">
-              {/* Photo */}
-              <div className="photo-float">
-                <div ref={photoRef} className="relative">
-                  {/* Pulsing glow */}
-                  <div className="photo-glow" />
-                  {/* Decorative rings */}
-                  <div
-                    className="absolute -inset-2 sm:-inset-5 rounded-full border"
-                    style={{ borderColor: "rgba(99,102,241,0.15)" }}
-                  />
-                  <div
-                    className="absolute -inset-4 sm:-inset-10 rounded-full border"
-                    style={{ borderColor: "rgba(34,211,238,0.08)" }}
-                  />
-                  {/* Orbiting satellite dot rides the outer ring */}
-                  <div className="photo-orbit absolute -inset-4 sm:-inset-10" />
-                  {/* Spinning gradient ring border */}
-                  <div className="photo-ring" />
-                  <img
-                    src={Photo}
-                    alt="Aman Tiwary"
-                    className="relative z-10 w-64 h-64 md:w-80 md:h-80 rounded-full object-cover"
-                    onError={(e) => {
-                      e.target.src = "https://ui-avatars.com/api/?name=Aman+Tiwary&background=6366f1&color=fff&size=320";
-                    }}
-                  />
-                  {/* Floating info card */}
-                  <div
-                    className="absolute z-20 -bottom-4 -left-8 px-4 py-2.5 rounded-xl text-xs font-mono"
-                    style={{
-                      background: "var(--surface)",
-                      border: "1px solid var(--border)",
-                      color: "var(--cyan)",
-                    }}
-                  >
-                    ⚡ MERN Stack Developer
-                  </div>
-                </div>
+              {/* Photo — polaroid hanging on a rope; drag it and it
+                  springs back (see HangingPhoto.jsx) */}
+              <div ref={photoRef}>
+                <HangingPhoto />
               </div>
 
               {/* Tech stack chips */}

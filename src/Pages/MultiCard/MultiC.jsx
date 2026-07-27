@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { SkeletonImage } from "../../Component/Skeleton/Skeleton";
 
 const projects = [
   {
@@ -9,7 +10,7 @@ const projects = [
     image: "https://images.unsplash.com/photo-1511895426328-dc8714191300?w=800&q=80",
     tags: ["MERN", "MongoDB", "REST APIs"],
     live: "https://famtree.live/",
-    accent: "#6366f1",
+    accent: "#ee5b2e",
   },
   {
     id: 2,
@@ -18,7 +19,7 @@ const projects = [
     image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80",
     tags: ["MERN", "SaaS", "RBAC"],
     live: "https://finance-management-fm.vercel.app/landing",
-    accent: "#22d3ee",
+    accent: "#e0b464",
   },
   {
     id: 3,
@@ -27,7 +28,7 @@ const projects = [
     image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80",
     tags: ["React", "REST APIs", "Real-time"],
     live: "http://aartechbts.com/",
-    accent: "#f472b6",
+    accent: "#d98a6a",
   },
 ];
 
@@ -44,7 +45,7 @@ const ProjectCard = ({ p, index }) => (
   >
     {/* Image */}
     <div className="relative overflow-hidden" style={{ height: "200px" }}>
-      <img
+      <SkeletonImage
         src={p.image}
         alt={p.title}
         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
@@ -52,7 +53,7 @@ const ProjectCard = ({ p, index }) => (
       {/* Overlay on hover */}
       <div
         className="absolute inset-0 flex items-center justify-center gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-        style={{ background: "rgba(5,5,8,0.75)" }}
+        style={{ background: "rgba(13,12,10,0.75)" }}
       >
         <a
           href={p.live}
@@ -74,7 +75,7 @@ const ProjectCard = ({ p, index }) => (
 
     {/* Content */}
     <div className="p-6">
-      <h3 className="text-lg font-bold text-white mb-2 group-hover:text-[#a5b4fc] transition-colors">
+      <h3 className="text-lg font-bold text-white mb-2 group-hover:text-[#e0b464] transition-colors">
         {p.title}
       </h3>
       <p className="text-sm leading-relaxed mb-4" style={{ color: "var(--muted)" }}>
@@ -95,7 +96,7 @@ const ProjectCard = ({ p, index }) => (
         rel="noopener noreferrer"
         className="inline-flex items-center gap-1.5 text-xs font-semibold transition-colors"
         style={{ color: "var(--muted)" }}
-        onMouseEnter={(e) => (e.currentTarget.style.color = "#a5b4fc")}
+        onMouseEnter={(e) => (e.currentTarget.style.color = "#e0b464")}
         onMouseLeave={(e) => (e.currentTarget.style.color = "var(--muted)")}
       >
         Visit Live Site

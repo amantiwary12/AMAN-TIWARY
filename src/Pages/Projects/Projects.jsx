@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { SkeletonImage } from "../../Component/Skeleton/Skeleton";
 import mind   from "../../Accest/mind.png";
 import secure from "../../Accest/secure.png";
 
@@ -14,7 +15,7 @@ const ALL_PROJECTS = [
     live: "https://famtree.live/",
     github: "https://github.com/amantiwary12",
     category: "fullstack",
-    accent: "#6366f1",
+    accent: "#ee5b2e",
   },
   {
     id: 102,
@@ -26,7 +27,7 @@ const ALL_PROJECTS = [
     live: "https://finance-management-fm.vercel.app/landing",
     github: "https://github.com/amantiwary12",
     category: "fullstack",
-    accent: "#34d399",
+    accent: "#8fb27c",
   },
   {
     id: 103,
@@ -38,7 +39,7 @@ const ALL_PROJECTS = [
     live: "https://rp-frontend-eight.vercel.app",
     github: "https://github.com/amantiwary12",
     category: "fullstack",
-    accent: "#fbbf24",
+    accent: "#e0b464",
   },
   {
     id: 1,
@@ -51,7 +52,7 @@ const ALL_PROJECTS = [
     github: "https://github.com/amantiwary12",
     path: "/MindSTrategy",
     category: "web",
-    accent: "#6366f1",
+    accent: "#ee5b2e",
   },
   {
     id: 2,
@@ -64,7 +65,7 @@ const ALL_PROJECTS = [
     github: "https://github.com/amantiwary12",
     path: "/secure",
     category: "web",
-    accent: "#22d3ee",
+    accent: "#e0b464",
   },
   {
     id: 3,
@@ -77,7 +78,7 @@ const ALL_PROJECTS = [
     github: "https://github.com/amantiwary12",
     path: "/Applevisiop",
     category: "3d",
-    accent: "#f472b6",
+    accent: "#d98a6a",
   },
 ];
 
@@ -104,7 +105,7 @@ const ProjectCard = ({ p, index, onClick }) => (
   >
     {/* Image */}
     <div className="relative overflow-hidden" style={{ height: "220px" }}>
-      <img
+      <SkeletonImage
         src={p.image}
         alt={p.title}
         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
@@ -117,7 +118,7 @@ const ProjectCard = ({ p, index, onClick }) => (
       {/* Hover overlay with links */}
       <div
         className="absolute inset-0 flex items-center justify-center gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-        style={{ background: "rgba(5,5,8,0.8)" }}
+        style={{ background: "rgba(13,12,10,0.8)" }}
       >
         <a
           href={p.live}
@@ -145,7 +146,7 @@ const ProjectCard = ({ p, index, onClick }) => (
     {/* Content */}
     <div className="p-6">
       <div className="flex items-start justify-between mb-2">
-        <h3 className="text-base font-bold text-white group-hover:text-[#a5b4fc] transition-colors">
+        <h3 className="text-base font-bold text-white group-hover:text-[#e0b464] transition-colors">
           {p.title}
         </h3>
         <span className="tag ml-2 flex-shrink-0 capitalize">{p.category}</span>

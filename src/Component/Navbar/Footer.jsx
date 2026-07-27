@@ -46,14 +46,19 @@ const Footer = () => (
 
         {/* Brand */}
         <div>
-          <div className="flex items-center gap-2 mb-4">
+          <div className="flex items-baseline gap-0.5 mb-4">
             <span
-              className="w-8 h-8 rounded-lg flex items-center justify-center text-sm font-black text-white"
-              style={{ background: "linear-gradient(135deg,#6366f1,#22d3ee)" }}
+              className="text-2xl"
+              style={{ fontFamily: "'Instrument Serif', Georgia, serif", color: "var(--text)" }}
             >
-              AT
+              Aman Tiwary
             </span>
-            <span className="font-bold text-white">Aman Tiwary</span>
+            <span
+              className="text-3xl leading-none"
+              style={{ fontFamily: "'Instrument Serif', Georgia, serif", color: "var(--accent)" }}
+            >
+              .
+            </span>
           </div>
           <p className="text-sm leading-relaxed mb-5" style={{ color: "var(--muted)" }}>
             MERN Stack Developer building secure REST APIs, real-time dashboards, and pixel-perfect web experiences.
@@ -68,7 +73,7 @@ const Footer = () => (
                 aria-label={label}
                 className="w-9 h-9 rounded-lg flex items-center justify-center transition-colors"
                 style={{ background: "var(--surface-2)", color: "var(--muted)", border: "1px solid var(--border)" }}
-                onMouseEnter={(e) => { e.currentTarget.style.color = "#a5b4fc"; e.currentTarget.style.borderColor = "rgba(99,102,241,0.4)"; }}
+                onMouseEnter={(e) => { e.currentTarget.style.color = "var(--accent)"; e.currentTarget.style.borderColor = "rgba(238,91,46,0.4)"; }}
                 onMouseLeave={(e) => { e.currentTarget.style.color = "var(--muted)"; e.currentTarget.style.borderColor = "var(--border)"; }}
               >
                 <Icon />
@@ -87,7 +92,7 @@ const Footer = () => (
                   to={to}
                   className="text-sm transition-colors"
                   style={{ color: "var(--muted)" }}
-                  onMouseEnter={(e) => (e.currentTarget.style.color = "#e8eaf8")}
+                  onMouseEnter={(e) => (e.currentTarget.style.color = "var(--text)")}
                   onMouseLeave={(e) => (e.currentTarget.style.color = "var(--muted)")}
                 >
                   {label}

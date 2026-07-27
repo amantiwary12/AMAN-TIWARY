@@ -2,6 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import secure from "../../Accest/secure.png";
+import { SkeletonImage } from "../../Component/Skeleton/Skeleton";
 
 const SecureSphere = () => {
   const project = {
@@ -39,19 +40,19 @@ const SecureSphere = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 pt-24 pb-16">
+    <div className="min-h-screen bg-gradient-to-br from-[#0d0c0a] via-[#131210] to-[#0d0c0a] pt-24 pb-16">
       {/* Hero Section */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         className="relative h-[50vh] overflow-hidden"
       >
-        <img
+        <SkeletonImage
           src={project.image}
           alt={project.title}
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/50 to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0d0c0a] via-[#0d0c0a]/50 to-transparent"></div>
         
         <div className="absolute bottom-0 left-0 right-0 p-8 max-w-7xl mx-auto">
           <motion.h1
@@ -103,7 +104,7 @@ const SecureSphere = () => {
                 whileHover={{ scale: 1.05 }}
                 className="bg-white/5 backdrop-blur-sm p-6 rounded-xl border border-white/10"
               >
-                <h3 className="text-xl font-semibold text-blue-400 mb-2">{tech.name}</h3>
+                <h3 className="text-xl font-semibold text-[#e0b464] mb-2">{tech.name}</h3>
                 <p className="text-gray-400">{tech.description}</p>
               </motion.div>
             ))}
@@ -125,7 +126,7 @@ const SecureSphere = () => {
                 whileHover={{ x: 10 }}
                 className="flex items-center space-x-3 text-gray-300"
               >
-                <svg className="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 text-[#8fb27c]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
                 <span>{feature}</span>
@@ -145,7 +146,7 @@ const SecureSphere = () => {
             href={project.link}
             target="_blank"
             rel="noopener noreferrer"
-            className="px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl font-semibold hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+            className="px-8 py-3 bg-[#ee5b2e] text-white rounded-xl font-semibold hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
           >
             Live Demo
           </a>

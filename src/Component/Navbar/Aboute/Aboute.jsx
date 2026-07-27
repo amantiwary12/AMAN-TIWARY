@@ -1,4 +1,10 @@
 import React, { useEffect, useRef } from "react";
+import {
+  IconCloud, IconCertificate, IconTrophy,
+  IconBolt, IconLock, IconPuzzle, IconBrush,
+  IconPlane, IconPencil, IconWorld, IconCamera,
+  IconDeviceGamepad2, IconBook, IconVideo, IconMapPin,
+} from "@tabler/icons-react";
 import Photo from "../../../Accest/myphoto.jpg";
 
 const skills = [
@@ -14,40 +20,40 @@ const skills = [
 
 const achievements = [
   {
-    icon: "☁️",
+    icon: <IconCloud size={26} stroke={1.5} style={{ color: "#e0b464" }} />,
     title: "AWS Solutions Architecture",
     desc: "Job Simulation — Forage (2023).",
-    tint: "rgba(34,211,238,0.12)",
+    tint: "rgba(224,180,100,0.10)",
   },
   {
-    icon: "🏅",
+    icon: <IconCertificate size={26} stroke={1.5} style={{ color: "#ee5b2e" }} />,
     title: "Frontend Internship Certification",
     desc: "Aartech Solonics Limited (2026).",
-    tint: "rgba(99,102,241,0.12)",
+    tint: "rgba(238,91,46,0.10)",
   },
   {
-    icon: "🏆",
+    icon: <IconTrophy size={26} stroke={1.5} style={{ color: "#e0b464" }} />,
     title: "HackMivo Hackathon",
     desc: "Built an innovative solution under a competitive hackathon setting.",
-    tint: "rgba(251,191,36,0.12)",
+    tint: "rgba(224,180,100,0.10)",
   },
 ];
 
 const highlights = [
-  { icon: "⚡", text: "Real-time IoT Dashboards" },
-  { icon: "🔐", text: "Secure REST APIs & JWT" },
-  { icon: "🧩", text: "ERP & SaaS Modules" },
-  { icon: "🎨", text: "Pixel-perfect UI" },
+  { icon: <IconBolt size={15} stroke={1.75} />, text: "Real-time IoT Dashboards" },
+  { icon: <IconLock size={15} stroke={1.75} />, text: "Secure REST APIs & JWT" },
+  { icon: <IconPuzzle size={15} stroke={1.75} />, text: "ERP & SaaS Modules" },
+  { icon: <IconBrush size={15} stroke={1.75} />, text: "Pixel-perfect UI" },
 ];
 
 const hobbies = [
-  { icon: "✈️", name: "Traveling" },
-  { icon: "✍️", name: "Blogging" },
-  { icon: "🌐", name: "Open Source" },
-  { icon: "📸", name: "Photography" },
-  { icon: "🎮", name: "Gaming" },
-  { icon: "📚", name: "Reading" },
-  { icon: "🎬", name: "Content Creation" },
+  { icon: <IconPlane size={15} stroke={1.75} />, name: "Traveling" },
+  { icon: <IconPencil size={15} stroke={1.75} />, name: "Blogging" },
+  { icon: <IconWorld size={15} stroke={1.75} />, name: "Open Source" },
+  { icon: <IconCamera size={15} stroke={1.75} />, name: "Photography" },
+  { icon: <IconDeviceGamepad2 size={15} stroke={1.75} />, name: "Gaming" },
+  { icon: <IconBook size={15} stroke={1.75} />, name: "Reading" },
+  { icon: <IconVideo size={15} stroke={1.75} />, name: "Content Creation" },
 ];
 
 const SkillBar = ({ name, pct }) => {
@@ -68,7 +74,7 @@ const SkillBar = ({ name, pct }) => {
     <div>
       <div className="flex justify-between mb-1.5 text-sm">
         <span className="font-medium text-white">{name}</span>
-        <span className="font-semibold" style={{ color: "#a5b4fc" }}>{pct}%</span>
+        <span className="font-semibold" style={{ color: "#e0b464" }}>{pct}%</span>
       </div>
       <div className="skill-bar-track">
         <div
@@ -112,7 +118,7 @@ export default function About() {
         className="absolute pointer-events-none"
         style={{
           top: "-120px", right: "-120px", width: "480px", height: "480px",
-          background: "radial-gradient(circle, rgba(99,102,241,0.14) 0%, transparent 70%)",
+          background: "radial-gradient(circle, rgba(238,91,46,0.14) 0%, transparent 70%)",
           filter: "blur(20px)",
         }}
       />
@@ -120,7 +126,7 @@ export default function About() {
         className="absolute pointer-events-none"
         style={{
           top: "45%", left: "-160px", width: "420px", height: "420px",
-          background: "radial-gradient(circle, rgba(34,211,238,0.08) 0%, transparent 70%)",
+          background: "radial-gradient(circle, rgba(224,180,100,0.08) 0%, transparent 70%)",
           filter: "blur(20px)",
         }}
       />
@@ -147,7 +153,7 @@ export default function About() {
               <div
                 className="absolute -inset-4 rounded-3xl"
                 style={{
-                  background: "conic-gradient(from 180deg, rgba(99,102,241,0.5), rgba(34,211,238,0.3), rgba(99,102,241,0.5))",
+                  background: "conic-gradient(from 180deg, rgba(238,91,46,0.5), rgba(224,180,100,0.3), rgba(238,91,46,0.5))",
                   filter: "blur(18px)",
                   opacity: 0.7,
                 }}
@@ -156,22 +162,22 @@ export default function About() {
                 src={Photo}
                 alt="Aman Tiwary"
                 className="relative rounded-2xl object-cover w-full max-w-xs"
-                style={{ border: "1px solid rgba(99,102,241,0.35)" }}
+                style={{ border: "1px solid rgba(238,91,46,0.35)" }}
                 onError={(e) => {
-                  e.target.src = "https://ui-avatars.com/api/?name=Aman+Tiwary&background=6366f1&color=fff&size=400";
+                  e.target.src = "https://ui-avatars.com/api/?name=Aman+Tiwary&background=ee5b2e&color=fff&size=400";
                 }}
               />
               <span
                 className="absolute -bottom-3 -right-3 px-3 py-1.5 rounded-xl text-xs font-bold shadow-lg"
                 style={{ background: "var(--accent)", color: "#fff" }}
               >
-                🟢 Open to work
+                Open to work
               </span>
               <span
-                className="absolute -top-3 -left-3 px-3 py-1.5 rounded-xl text-xs font-bold shadow-lg"
-                style={{ background: "var(--surface-2)", color: "#a5b4fc", border: "1px solid rgba(99,102,241,0.3)" }}
+                className="absolute -top-3 -left-3 flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold shadow-lg"
+                style={{ background: "var(--surface-2)", color: "#e0b464", border: "1px solid rgba(238,91,46,0.3)" }}
               >
-                ⚡ MERN Stack Dev
+                <IconBolt size={13} stroke={2} /> MERN Stack Dev
               </span>
             </div>
           </div>
@@ -179,7 +185,7 @@ export default function About() {
           {/* Bio text */}
           <div className="lg:col-span-3 space-y-5 reveal reveal-delay-1">
             <h2 className="text-3xl md:text-4xl font-bold text-white">
-              Hi, I'm <span className="g-text">Aman Tiwary</span> 👋
+              Hi, I'm <span className="g-text">Aman Tiwary</span>
             </h2>
             <p className="leading-relaxed" style={{ color: "var(--muted)" }}>
               I'm a <strong className="text-white">MERN Stack Developer</strong> with 11+ months of hands-on
@@ -200,9 +206,9 @@ export default function About() {
                   key={h.text}
                   className="flex items-center gap-2 text-xs font-semibold px-3.5 py-2 rounded-full"
                   style={{
-                    background: "rgba(99,102,241,0.08)",
-                    border: "1px solid rgba(99,102,241,0.22)",
-                    color: "#c7d2fe",
+                    background: "rgba(238,91,46,0.08)",
+                    border: "1px solid rgba(238,91,46,0.22)",
+                    color: "#d8d1c4",
                   }}
                 >
                   <span>{h.icon}</span> {h.text}
@@ -241,7 +247,7 @@ export default function About() {
             <div className="timeline-line" />
             <div
               className="absolute -left-1.5 top-0 w-4 h-4 rounded-full border-2"
-              style={{ background: "var(--accent)", borderColor: "var(--bg)", boxShadow: "0 0 16px rgba(99,102,241,0.7)" }}
+              style={{ background: "var(--accent)", borderColor: "var(--bg)", boxShadow: "0 0 16px rgba(238,91,46,0.7)" }}
             />
 
             <div className="card rounded-2xl p-8">
@@ -253,10 +259,10 @@ export default function About() {
                   </p>
                 </div>
                 <span
-                  className="text-xs px-3 py-1 rounded-full self-start sm:self-auto"
+                  className="text-xs px-3 py-1 rounded-full self-start sm:self-auto inline-flex items-center gap-1.5"
                   style={{ background: "var(--surface-2)", color: "var(--muted)", border: "1px solid var(--border)" }}
                 >
-                  📍 Mandideep, Madhya Pradesh
+                  <IconMapPin size={13} stroke={1.75} /> Mandideep, Madhya Pradesh
                 </span>
               </div>
               <ul className="space-y-2 text-sm mb-5" style={{ color: "var(--muted)" }}>
@@ -288,7 +294,7 @@ export default function About() {
           <div className="card reveal reveal-delay-1 rounded-2xl p-8 flex flex-col sm:flex-row items-start gap-6">
             <span
               className="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl flex-shrink-0"
-              style={{ background: "rgba(99,102,241,0.12)", border: "1px solid rgba(99,102,241,0.25)" }}
+              style={{ background: "rgba(238,91,46,0.12)", border: "1px solid rgba(238,91,46,0.25)" }}
             >
               🎓
             </span>
@@ -364,13 +370,13 @@ export default function About() {
           <div
             className="relative rounded-3xl px-8 py-14 text-center overflow-hidden"
             style={{
-              background: "linear-gradient(135deg, rgba(99,102,241,0.10), rgba(34,211,238,0.05))",
-              border: "1px solid rgba(99,102,241,0.2)",
+              background: "linear-gradient(135deg, rgba(238,91,46,0.10), rgba(224,180,100,0.05))",
+              border: "1px solid rgba(238,91,46,0.2)",
             }}
           >
             <span
               className="absolute top-4 left-8 text-8xl font-black select-none"
-              style={{ color: "rgba(99,102,241,0.15)", fontFamily: "Georgia, serif" }}
+              style={{ color: "rgba(238,91,46,0.15)", fontFamily: "Georgia, serif" }}
             >
               "
             </span>

@@ -29,7 +29,7 @@ const BigCTA = () => {
       {/* Glow */}
       <div
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] max-w-[600px] h-[55vw] max-h-[400px] rounded-full pointer-events-none"
-        style={{ background: "radial-gradient(ellipse, rgba(99,102,241,0.12) 0%, transparent 70%)" }}
+        style={{ background: "radial-gradient(ellipse, rgba(238,91,46,0.10) 0%, transparent 70%)" }}
       />
 
       <div className="relative z-10 max-w-5xl mx-auto px-6 lg:px-10 text-center">

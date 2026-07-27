@@ -99,7 +99,7 @@ const ContactPage = () => {
     setTimeout(() => setSent(false), 5000);
   };
 
-  const focusStyle = (e) => (e.currentTarget.style.borderColor = "rgba(99,102,241,0.6)");
+  const focusStyle = (e) => (e.currentTarget.style.borderColor = "rgba(238,91,46,0.6)");
   const blurStyle  = (e) => (e.currentTarget.style.borderColor = "var(--border)");
 
   return (
@@ -127,7 +127,7 @@ const ContactPage = () => {
               >
                 <span
                   className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
-                  style={{ background: "rgba(99,102,241,0.12)", color: "#a5b4fc" }}
+                  style={{ background: "rgba(238,91,46,0.12)", color: "#e0b464" }}
                 >
                   {c.icon}
                 </span>
@@ -160,7 +160,7 @@ const ContactPage = () => {
             >
               <h2 className="text-xl font-bold text-white mb-1">Send a Message</h2>
               <p className="text-sm mb-7" style={{ color: "var(--muted)" }}>
-                Fill out the form — it opens WhatsApp with your message ready to send. 🚀
+                Fill out the form — it opens WhatsApp with your message ready to send.
               </p>
 
               {sent && (
@@ -320,12 +320,12 @@ const ContactPage = () => {
                     rel="noopener noreferrer"
                     className="flex items-center gap-3 p-3 rounded-xl transition-colors text-sm"
                     style={{ background: "var(--surface-2)", color: "var(--muted)", border: "1px solid var(--border)" }}
-                    onMouseEnter={(e) => { e.currentTarget.style.color = "#a5b4fc"; e.currentTarget.style.borderColor = "rgba(99,102,241,0.3)"; }}
+                    onMouseEnter={(e) => { e.currentTarget.style.color = "#e0b464"; e.currentTarget.style.borderColor = "rgba(238,91,46,0.3)"; }}
                     onMouseLeave={(e) => { e.currentTarget.style.color = "var(--muted)"; e.currentTarget.style.borderColor = "var(--border)"; }}
                   >
                     <span
                       className="w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold"
-                      style={{ background: "rgba(99,102,241,0.12)", color: "#a5b4fc" }}
+                      style={{ background: "rgba(238,91,46,0.12)", color: "#e0b464" }}
                     >
                       {s.abbr}
                     </span>
@@ -350,20 +350,20 @@ const ContactPage = () => {
               <div className="space-y-2 text-xs" style={{ color: "var(--muted)" }}>
                 <div className="flex justify-between">
                   <span>Mon – Fri</span>
-                  <span style={{ color: "#a5b4fc" }}>9 AM – 6 PM IST</span>
+                  <span style={{ color: "#e0b464" }}>9 AM – 6 PM IST</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Saturday</span>
-                  <span style={{ color: "#a5b4fc" }}>10 AM – 2 PM IST</span>
+                  <span style={{ color: "#e0b464" }}>10 AM – 2 PM IST</span>
                 </div>
                 <div className="flex justify-between gap-3">
                   <span>Sunday</span>
-                  <span className="text-right" style={{ color: "#fbbf24" }}>
+                  <span className="text-right" style={{ color: "#e0b464" }}>
                     😴 Officially off — but for a cool project, my laptop mysteriously opens itself 💻✨
                   </span>
                 </div>
                 <div className="pt-3" style={{ borderTop: "1px solid var(--border)" }}>
-                  ⚡ Avg. response time: within 24 hours
+                  Avg. response time: within 24 hours
                 </div>
               </div>
             </div>

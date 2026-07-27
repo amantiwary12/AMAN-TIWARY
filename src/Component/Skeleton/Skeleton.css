@@ -1,0 +1,132 @@
+/* ─────────────────────────────────────────────────────────────
+   Skeleton loading system
+   Matches the site's dark theme (uses the same CSS variables
+   defined in index.css: --bg, --surface, --surface-2, --border)
+   ───────────────────────────────────────────────────────────── */
+
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  background: var(--surface-2, #1a1815);
+  border-radius: 8px;
+  /* never let a skeleton flash-render its own content */
+  color: transparent !important;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* moving shimmer highlight */
+.skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.06) 45%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0.06) 55%,
+    transparent 100%
+  );
+  animation: skeleton-shimmer 1.6s ease-in-out infinite;
+}
+
+@keyframes skeleton-shimmer {
+  100% { transform: translateX(100%); }
+}
+
+/* shape modifiers */
+.skeleton--circle { border-radius: 50%; }
+.skeleton--pill   { border-radius: 999px; }
+.skeleton--card   {
+  background: var(--surface, #131210);
+  border: 1px solid var(--border, rgba(255, 255, 255, 0.07));
+  border-radius: 16px;
+  pointer-events: none;
+}
+
+/* text lines: the last line in a group is shorter, like real text */
+.skeleton-text-group { display: flex; flex-direction: column; gap: 10px; }
+.skeleton-text-group .skeleton:last-child { width: 60%; }
+
+/* ── SkeletonImage: shimmer sits behind the real <img> until it loads ── */
+.skeleton-img-wrap {
+  position: relative;
+  overflow: hidden;
+  background: var(--surface-2, #1a1815);
+}
+.skeleton-img-wrap > img {
+  opacity: 0;
+  transition: opacity 0.45s ease;
+}
+.skeleton-img-wrap.loaded > img { opacity: 1; }
+.skeleton-img-wrap .skeleton-img-shimmer {
+  position: absolute;
+  inset: 0;
+  border-radius: 0;
+}
+.skeleton-img-wrap.loaded .skeleton-img-shimmer { display: none; }
+
+/* ── page skeleton layout helpers ── */
+.skeleton-page {
+  min-height: 100vh;
+  background: var(--bg, #0d0c0a);
+  padding: 110px 24px 60px;   /* clears the fixed navbar */
+}
+.skeleton-page-inner { max-width: 1200px; margin: 0 auto; }
+
+.skeleton-grid {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+/* fade the whole skeleton page in slightly so quick loads don't flash */
+.skeleton-page {
+  animation: skeleton-page-in 0.25s ease both;
+}
+@keyframes skeleton-page-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ── network status banner ── */
+.network-banner {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text, #e8eaf8);
+  background: var(--surface, #131210);
+  border: 1px solid var(--border, rgba(255, 255, 255, 0.07));
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  animation: network-banner-in 0.3s ease both;
+}
+.network-banner .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.network-banner--offline .dot { background: #f87171; }
+.network-banner--slow    .dot { background: #fbbf24; }
+.network-banner--back    .dot { background: #34d399; }
+
+@keyframes network-banner-in {
+  from { opacity: 0; transform: translate(-50%, 12px); }
+  to   { opacity: 1; transform: translate(-50%, 0); }
+}
+
+/* accessibility: stop the shimmer for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .skeleton::after { animation: none; }
+}

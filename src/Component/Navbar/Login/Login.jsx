@@ -40,7 +40,7 @@ const Login = () => {
     setTimeout(() => setLoading(false), 1500);
   };
 
-  const focusStyle = (e) => (e.currentTarget.style.borderColor = "rgba(99,102,241,0.6)");
+  const focusStyle = (e) => (e.currentTarget.style.borderColor = "rgba(238,91,46,0.6)");
   const blurStyle  = (e) => (e.currentTarget.style.borderColor = "var(--border)");
 
   return (
@@ -58,7 +58,7 @@ const Login = () => {
           <div className="text-center mb-8">
             <span
               className="w-12 h-12 rounded-xl flex items-center justify-center text-lg font-black text-white mx-auto mb-4"
-              style={{ background: "linear-gradient(135deg,#6366f1,#22d3ee)" }}
+              style={{ background: "linear-gradient(135deg,#ee5b2e,#e0b464)" }}
             >
               AT
             </span>
@@ -149,7 +149,7 @@ const Login = () => {
 
           <p className="text-center text-xs mt-6" style={{ color: "var(--muted)" }}>
             Don't have an account?{" "}
-            <Link to="/" className="font-semibold" style={{ color: "#a5b4fc" }}>
+            <Link to="/" className="font-semibold" style={{ color: "#e0b464" }}>
               Go Home
             </Link>
           </p>

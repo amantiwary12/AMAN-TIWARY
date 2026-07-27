@@ -8,32 +8,32 @@ const skillGroups = [
   {
     title: "Frontend",
     skills: ["React.js", "Redux", "Tailwind CSS", "GSAP", "Responsive UI Design", "Component Architecture", "Data Visualization"],
-    accent: "#6366f1",
+    accent: "#ee5b2e",
   },
   {
     title: "Backend",
     skills: ["Node.js", "Express.js", "REST API Development", "JWT Authentication", "bcrypt", "RBAC", "Middleware", "WebSockets"],
-    accent: "#22d3ee",
+    accent: "#e0b464",
   },
   {
     title: "Database",
     skills: ["MongoDB", "Mongoose", "Schema Design", "Query Optimization", "Aggregation Pipelines"],
-    accent: "#f472b6",
+    accent: "#ee5b2e",
   },
   {
     title: "Languages",
     skills: ["JavaScript (ES6+)", "HTML5", "CSS3", "JSON"],
-    accent: "#34d399",
+    accent: "#e0b464",
   },
   {
     title: "Tools & Platforms",
     skills: ["Git", "GitHub", "Postman", "Firebase", "Vercel", "Render", "Figma", "Browser DevTools"],
-    accent: "#fbbf24",
+    accent: "#ee5b2e",
   },
   {
     title: "Core Concepts",
     skills: ["MERN Stack", "SaaS Development", "ERP Systems", "API Integration", "State Management", "Auth & Authorization", "Performance Optimization", "Agile Development"],
-    accent: "#a78bfa",
+    accent: "#e0b464",
   },
 ];
 

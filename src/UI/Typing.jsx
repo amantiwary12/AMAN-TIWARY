@@ -47,7 +47,7 @@ const Typing = () => {
       <span
         className="inline-block w-0.5 h-5 ml-0.5 align-middle"
         style={{
-          background: "#6366f1",
+          background: "#ee5b2e",
           animation: "blink 1s step-end infinite",
         }}
       />

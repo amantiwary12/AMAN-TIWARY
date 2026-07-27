@@ -5,6 +5,16 @@ import Photo from "../../Accest/myphoto.jpg";
 
 gsap.registerPlugin(ScrollTrigger);
 
+/* Second photo revealed in a circle around the cursor (Cloudinary) */
+const HIDDEN_PHOTO =
+  "https://res.cloudinary.com/dsu2nstip/image/upload/w_900,q_auto,f_auto/v1785135268/WhatsApp_Image_2026-07-27_at_12.22.59_PM_xwnzog.jpg";
+
+/* Mask on the FRONT photo: transparent circle at the cursor (--mx/--my)
+   punches a soft-edged hole through it, showing the photo behind.
+   When the cursor is outside, --mx/--my sit far off-canvas → no hole. */
+const REVEAL_MASK =
+  "radial-gradient(circle 130px at var(--mx, -400px) var(--my, -400px), transparent 0 58%, rgba(0,0,0,0.45) 80%, #000 100%)";
+
 const infoRows = [
   { label: "Name",     value: "Aman Tiwary" },
   { label: "Based in", value: "Jamshedpur, Jharkhand · India" },
@@ -19,6 +29,22 @@ const AboutMe = () => {
   const photoDriftRef = useRef(null);
   const textRef = useRef(null);
   const headingRef = useRef(null);
+  const revealRef = useRef(null);
+
+  /* track the cursor inside the photo — the mask reads --mx/--my */
+  const handleRevealMove = (e) => {
+    const el = revealRef.current;
+    if (!el) return;
+    const r = el.getBoundingClientRect();
+    el.style.setProperty("--mx", `${e.clientX - r.left}px`);
+    el.style.setProperty("--my", `${e.clientY - r.top}px`);
+  };
+  const handleRevealLeave = () => {
+    const el = revealRef.current;
+    if (!el) return;
+    el.style.setProperty("--mx", "-400px");
+    el.style.setProperty("--my", "-400px");
+  };
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -110,33 +136,69 @@ const AboutMe = () => {
               {/* Offset frame behind the photo */}
               <div
                 className="absolute -top-2 -left-2 sm:-top-5 sm:-left-5 w-full h-full rounded-2xl"
-                style={{ border: "1px solid rgba(99,102,241,0.35)" }}
+                style={{ border: "1px solid rgba(238,91,46,0.35)" }}
               />
               <div
                 className="absolute -bottom-2 -right-2 sm:-bottom-5 sm:-right-5 w-full h-full rounded-2xl"
-                style={{ background: "linear-gradient(135deg, rgba(99,102,241,0.14), rgba(34,211,238,0.08))" }}
+                style={{ background: "rgba(238,91,46,0.07)" }}
               />
-              <div className="relative rounded-2xl overflow-hidden" style={{ border: "1px solid var(--border)" }}>
+              <div
+                ref={revealRef}
+                className="relative rounded-2xl overflow-hidden"
+                style={{ border: "1px solid var(--border)", cursor: "crosshair" }}
+                onPointerMove={handleRevealMove}
+                onPointerLeave={handleRevealLeave}
+              >
+                {/* Hidden photo underneath — shows through the cursor hole */}
+                <img
+                  src={HIDDEN_PHOTO}
+                  alt=""
+                  aria-hidden="true"
+                  loading="lazy"
+                  draggable={false}
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+                {/* Front photo — masked with a soft hole that follows the mouse */}
                 <img
                   src={Photo}
                   alt="Aman Tiwary"
-                  className="w-full object-cover transition-transform duration-700 hover:scale-105"
-                  style={{ aspectRatio: "4/5" }}
+                  draggable={false}
+                  className="relative w-full object-cover"
+                  style={{
+                    aspectRatio: "4/5",
+                    WebkitMaskImage: REVEAL_MASK,
+                    maskImage: REVEAL_MASK,
+                  }}
                   onError={(e) => {
                     e.target.src =
-                      "https://ui-avatars.com/api/?name=Aman+Tiwary&background=6366f1&color=fff&size=640";
+                      "https://ui-avatars.com/api/?name=Aman+Tiwary&background=ee5b2e&color=fff&size=640";
                   }}
                 />
                 {/* Bottom gradient + caption */}
                 <div
-                  className="absolute inset-x-0 bottom-0 p-5 pt-16"
-                  style={{ background: "linear-gradient(to top, rgba(5,5,8,0.85), transparent)" }}
+                  className="absolute inset-x-0 bottom-0 p-5 pt-16 pointer-events-none"
+                  style={{ background: "linear-gradient(to top, rgba(13,12,10,0.85), transparent)" }}
                 >
                   <p className="text-white font-bold">Aman Tiwary</p>
                   <p className="text-xs" style={{ color: "var(--cyan)" }}>
                     MERN Stack Developer
                   </p>
                 </div>
+                {/* Hint */}
+                <span
+                  className="absolute top-3 right-3 px-2.5 py-1 rounded-full pointer-events-none"
+                  style={{
+                    fontFamily: "'JetBrains Mono', monospace",
+                    fontSize: "0.58rem",
+                    letterSpacing: "0.12em",
+                    color: "var(--muted)",
+                    background: "rgba(13,12,10,0.6)",
+                    border: "1px solid var(--border)",
+                    backdropFilter: "blur(6px)",
+                  }}
+                >
+                  ( hover me )
+                </span>
               </div>
             </div>
           </div>
