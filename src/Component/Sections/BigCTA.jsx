@@ -35,6 +35,24 @@ const BigCTA = () => {
       <div className="relative z-10 max-w-5xl mx-auto px-6 lg:px-10 text-center">
         <span className="section-label justify-center">Next Step</span>
 
+        {/* availability badge — tells visitors instantly that reaching out is welcome */}
+        <div className="mt-5 flex justify-center">
+          <span
+            className="inline-flex items-center gap-2 text-xs font-semibold tracking-wide uppercase px-4 py-2 rounded-full"
+            style={{
+              border: "1px solid var(--border)",
+              color: "var(--text)",
+              background: "rgba(238, 91, 46, 0.06)",
+            }}
+          >
+            <span
+              className="w-2 h-2 rounded-full animate-pulse"
+              style={{ background: "#4ade80", boxShadow: "0 0 8px #4ade80" }}
+            />
+            Open to full-time roles &amp; freelance projects
+          </span>
+        </div>
+
         <div ref={linesRef} className="mt-6 mb-10 overflow-hidden">
           <h2
             className="font-black text-white leading-[1.05] tracking-tight"

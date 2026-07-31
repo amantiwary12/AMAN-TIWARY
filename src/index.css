@@ -115,10 +115,19 @@ body::after {
   transform: translateY(-8px) rotate(-4deg);
 }
 
-/* space once reserved for the mirror reflection — kept as plain
-   spacing so the layout below the name doesn't shift */
+/* glass look under the name: a mirrored, fading reflection on a
+   "glass floor", plus a soft contact shadow that lifts the text
+   off the surface */
 .hero-reflect {
+  position: relative;
   margin-bottom: clamp(1.25rem, 3vw, 2.25rem);
+  -webkit-box-reflect: below 4px linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0) 58%,
+    rgba(255, 255, 255, 0.18) 100%
+  );
+  filter: drop-shadow(0 16px 30px rgba(0, 0, 0, 0.5))
+          drop-shadow(0 4px 10px rgba(0, 0, 0, 0.4));
 }
 
 /* accent-coloured letters in the name (solid — no gradient wave) */
@@ -342,4 +351,292 @@ body::after {
   bottom: 0;
   width: 1px;
   background: linear-gradient(to bottom, var(--accent), transparent);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   3D SCROLL HERO — dungyov-style fly-through
+   Self-contained; only used by Hero3D.jsx on the home hero.
+   ───────────────────────────────────────────────────────────── */
+.h3d {
+  position: relative;
+  height: 800vh;
+}
+
+/* soft central glow — makes the depth read like space */
+.h3d-glow {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 130vmin;
+  height: 130vmin;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(
+    circle,
+    rgba(224, 180, 100, 0.07) 0%,
+    rgba(238, 91, 46, 0.045) 35%,
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+/* sticky viewport that owns the 3D perspective */
+.h3d-stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  perspective: 1200px;
+  background: var(--bg);
+  z-index: 1;
+}
+
+/* faint dot grid so the fly-through has a floor to read depth against */
+.h3d-stage::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(236, 231, 222, 0.05) 1px, transparent 1px);
+  background-size: 28px 28px;
+  pointer-events: none;
+}
+
+/* soft vignette — a cheap stand-in for WebGL fog */
+.h3d-stage::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 42%, rgba(13, 12, 10, 0.55) 100%);
+  pointer-events: none;
+}
+
+.h3d-scene {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.h3d-layer {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 28px 24px;
+  transform-style: preserve-3d;
+  will-change: transform, opacity;
+}
+
+.h3d-inner {
+  width: 100%;
+  max-width: 860px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  text-align: center;
+}
+
+.h3d-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #34d399;
+}
+
+.h3d-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #34d399;
+  animation: h3d-pulse 1.6s ease-in-out infinite;
+}
+@keyframes h3d-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.45; transform: scale(0.8); }
+}
+
+.h3d-title {
+  font-size: clamp(1.9rem, 4.5vw, 3.4rem);
+  font-weight: 800;
+  line-height: 1.12;
+  color: var(--text);
+}
+
+.h3d-sub {
+  max-width: 560px;
+  font-size: clamp(0.98rem, 1.6vw, 1.12rem);
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+.h3d-ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+}
+
+.h3d-stats {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(2rem, 6vw, 4.5rem);
+}
+.h3d-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.h3d-chips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  max-width: 420px;
+}
+
+.h3d-quote {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-style: italic;
+  font-size: clamp(2rem, 5.5vw, 4.2rem);
+  line-height: 1.15;
+  color: var(--text);
+}
+
+/* ── hint ── */
+.h3d-hint {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  color: var(--muted);
+  transition: opacity 0.5s ease;
+  z-index: 15;
+  pointer-events: none;
+}
+.h3d-hint span {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
+.h3d-hint .line {
+  width: 1px;
+  height: 42px;
+  background: linear-gradient(to bottom, var(--accent), transparent);
+  animation: h3d-bob 1.8s ease-in-out infinite;
+}
+@keyframes h3d-bob {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-7px); }
+}
+
+/* ── right rail: progress + section nav ── */
+.h3d-progress {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: rgba(236, 231, 222, 0.06);
+  z-index: 20;
+}
+.h3d-progress-fill {
+  height: 100%;
+  transform: scaleY(0);
+  transform-origin: top;
+  background: var(--accent);
+}
+
+.h3d-hud {
+  position: absolute;
+  right: 26px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+  z-index: 20;
+}
+.h3d-hud button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  padding: 2px 0;
+  cursor: pointer;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  opacity: 0.6;
+  transition: color 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
+}
+.h3d-hud button:hover { opacity: 1; color: var(--text); }
+.h3d-hud button.active { color: var(--accent); opacity: 1; transform: translateX(-4px); }
+.h3d-hud button i { font-style: normal; opacity: 0.55; }
+
+/* ── star field — lives inside the 3D scene, so the scene's Z-translate
+     makes every star zoom toward the camera and streak past on scroll ── */
+.h3d-star {
+  position: absolute;
+  pointer-events: none;
+  will-change: opacity;
+}
+
+.h3d-star-core {
+  display: block;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 8px rgba(236, 231, 222, 0.95), 0 0 16px rgba(236, 231, 222, 0.35);
+  animation: starTwinkle 3s ease-in-out infinite;
+}
+
+.h3d-star-core.warm {
+  background: var(--accent);
+  box-shadow: 0 0 10px rgba(238, 91, 46, 1), 0 0 18px rgba(238, 91, 46, 0.4);
+}
+
+@keyframes starTwinkle {
+  0%, 100% { opacity: 0.6; transform: scale(0.9); }
+  50%      { opacity: 1;   transform: scale(1.25); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .h3d-star-core { animation: none; }
+}
+
+/* ── flight-path trail — dotted line meandering between the sections;
+     it sits inside the 3D scene so it only travels while you scroll ── */
+.h3d-trail {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 7px rgba(238, 91, 46, 0.9), 0 0 14px rgba(238, 91, 46, 0.35);
+  pointer-events: none;
+  will-change: opacity;
+}
+
+@media (max-width: 768px) {
+  .h3d-hud { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .h3d-hint .line { animation: none; }
+  .h3d-dot { animation: none; }
 }
