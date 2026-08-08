@@ -6,6 +6,18 @@ import secure from "../../Accest/secure.png";
 
 const ALL_PROJECTS = [
   {
+    id: 100,
+    title: "Pardex — AutoCaption Pro",
+    desc: "Local-first AI video editor that auto-generates captions in English, Hindi & Hinglish with Whisper — all user data stays in the browser.",
+    fullDesc: "Pardex (AutoCaption Pro) is a startup video editor focused on automatic captioning. A Premiere-Pro-style editor — tool rail, canvas preview, and a timeline with video/caption/audio tracks — with clip split/trim/delete, undo/redo, karaoke and word-by-word caption styles, and ffmpeg-powered audio effects. Whisper AI transcribes speech server-side statelessly, while every project, caption, and video lives in the browser via IndexedDB: nothing is ever stored on a server.",
+    image: "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800&q=80",
+    tags: ["React 18", "Whisper AI", "IndexedDB", "ffmpeg", "Express", "Tailwind"],
+    live: "https://pardex-video-editor.vercel.app",
+    github: "https://github.com/amantiwary12",
+    category: "ai",
+    accent: "#ec4899",
+  },
+  {
     id: 101,
     title: "Wedding Family Tree",
     desc: "Full-stack MERN app for creating and managing dynamic, multi-generational family tree structures.",
@@ -82,7 +94,7 @@ const ALL_PROJECTS = [
   },
 ];
 
-const FILTERS = ["all", "fullstack", "web", "3d"];
+const FILTERS = ["all", "ai", "fullstack", "web", "3d"];
 
 const ExternalIcon = () => (
   <svg width="13" height="13" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -329,7 +329,7 @@ const Hero3D = () => {
           </svg>
         </Link>
         <a
-          href="https://drive.google.com/file/d/1Y8Ppa4AaT1RGtoHPC04PkJpQ1wngPiJK/view?usp=drive_link"
+          href="https://drive.google.com/file/d/1O9NydPWWoIWNvhaj0189e3DPErG83Mly/view?usp=drive_link"
           target="_blank"
           rel="noopener noreferrer"
           className="btn-outline"

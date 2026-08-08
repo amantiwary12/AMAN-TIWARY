@@ -2,12 +2,9 @@ import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Photo from "../../Accest/myphoto.jpg";
+import AnimeMe from "../../Accest/animated.me.png";
 
 gsap.registerPlugin(ScrollTrigger);
-
-/* Second photo revealed in a circle around the cursor (Cloudinary) */
-const HIDDEN_PHOTO =
-  "https://res.cloudinary.com/dsu2nstip/image/upload/w_900,q_auto,f_auto/v1785135268/WhatsApp_Image_2026-07-27_at_12.22.59_PM_xwnzog.jpg";
 
 /* Mask on the FRONT photo: transparent circle at the cursor (--mx/--my)
    punches a soft-edged hole through it, showing the photo behind.
@@ -149,9 +146,9 @@ const AboutMe = () => {
                 onPointerMove={handleRevealMove}
                 onPointerLeave={handleRevealLeave}
               >
-                {/* Hidden photo underneath — shows through the cursor hole */}
+                {/* Anime portrait underneath — shows through the cursor hole */}
                 <img
-                  src={HIDDEN_PHOTO}
+                  src={AnimeMe}
                   alt=""
                   aria-hidden="true"
                   loading="lazy"
@@ -197,7 +194,7 @@ const AboutMe = () => {
                     backdropFilter: "blur(6px)",
                   }}
                 >
-                  ( hover me )
+                  ( hover — anime me )
                 </span>
               </div>
             </div>
