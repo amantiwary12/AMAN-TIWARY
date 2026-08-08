@@ -135,35 +135,39 @@ const Hero3D = () => {
   useEffect(() => {
     const scope = introInnerRef.current;
     if (!scope) return;
-    const one = (sel) => scope.querySelector(sel);
-    const many = (sel) => scope.querySelectorAll(sel);
 
-    const tl = gsap.timeline({ defaults: { ease: "power3.out", duration: 0.9 } });
-    tl.from(one(".h3d-badge"), { y: -16, opacity: 0, duration: 0.5 })
-      .from(
-        one(".hero-script"),
-        { y: 40, opacity: 0, rotate: -12, scale: 0.8, duration: 0.8 },
-        "-=0.2"
-      )
-      .from(
-        many(".hero-letter"),
-        {
-          y: 90,
-          opacity: 0,
-          rotateX: -85,
-          transformPerspective: 700,
-          filter: "blur(8px)",
-          stagger: 0.05,
-          duration: 1,
-          clearProps: "transform,opacity,filter",
-        },
-        "-=0.45"
-      )
-      .from(one(".h3d-typing"), { y: 30, opacity: 0 }, "-=0.5")
-      .pause(0);
+    const ctx = gsap.context(() => {
+      const one = (sel) => scope.querySelector(sel);
+      const many = (sel) => scope.querySelectorAll(sel);
 
-    tlRef.current = tl;
-    return () => tl.kill();
+      const tl = gsap.timeline({ defaults: { ease: "power3.out", duration: 0.9 } });
+      tl.from(one(".h3d-badge"), { y: -16, opacity: 0, duration: 0.5 })
+        .from(
+          one(".hero-script"),
+          { y: 40, opacity: 0, rotate: -12, scale: 0.8, duration: 0.8 },
+          "-=0.2"
+        )
+        .from(
+          many(".hero-letter"),
+          {
+            y: 90,
+            opacity: 0,
+            rotateX: -85,
+            transformPerspective: 700,
+            filter: "blur(8px)",
+            stagger: 0.05,
+            duration: 1,
+            clearProps: "transform,opacity,filter",
+          },
+          "-=0.45"
+        )
+        .from(one(".h3d-typing"), { y: 30, opacity: 0 }, "-=0.5")
+        .pause(0);
+
+      tlRef.current = tl;
+    }, scope);
+
+    return () => ctx.revert();
   }, []);
 
   useEffect(() => {
